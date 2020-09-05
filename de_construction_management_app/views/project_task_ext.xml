@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+
+<odoo>
+
+    <record id="de_construction_management_app.project_project_task_ext_view" model="ir.ui.view">
+        <field name="name">project task inherit form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Material Planning">
+
+                </page>
+                <page string="Consumed Material">
+
+                </page>
+                <page string="Material Requisition">
+
+                </page>
+                <page string="Stock Moves">
+
+                </page>
+            </notebook>
+			<xpath expr="//field[@name='user_id']" position="after">
+				<field name="date_start"/>
+				<field name="date_end"/>
+			</xpath>
+        </field>
+    </record>
+
+    <record id="stock.stock_picking_action_picking_type" model="ir.actions.act_window">
+            <field name="name">Material Requisition</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+            <field name="domain"></field>
+            <field name="context">{'contact_display': 'partner_address'}</field>
+            <field name="search_view_id" ref="view_picking_internal_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new transfer
+                </p><p>
+                    Transfers allow you to move products from one location to another.
+                </p>
+            </field>
+        </record>
+
+    <!--    Materials-->
+    <menuitem id="de_construction_management_app.de_construction_management_app_materials" name="Material/ BOQ"
+              parent="de_construction_management_app.de_construction_management_app_root"/>
+
+    <menuitem id="de_construction_management_app.de_construction_management_app_materials_requisition"
+              name="Material Requisition"
+              parent="de_construction_management_app.de_construction_management_app_materials"
+              action="stock.stock_picking_action_picking_type"/>
+</odoo>

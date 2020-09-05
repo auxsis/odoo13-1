@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <template id="pos_assets_ext" inherit_id="point_of_sale.assets">
+            <xpath expr="//script[@src='/point_of_sale/static/src/js/models.js']" position="replace">
+                <script type="text/javascript" src="/de_custom_pos_receipt/static/src/js/models.js"></script>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

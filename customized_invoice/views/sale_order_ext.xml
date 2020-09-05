@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+
+<odoo>
+
+<!--    sale order line form-->
+    <record id="customized_invoice.inherit_sale_order_view_form" model="ir.ui.view">
+        <field name="name">inherit.sale.order.view</field>
+        <field name ="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name = "arch" type = "xml">
+            <xpath expr ="//field[@name='order_line']" position="inside">
+                <form string="Invoice Lines">
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="cotton"/>
+                            <field name="cotton_packing"/>
+<!--                            <field name ="cotton_units"/>-->
+                            <field name ="product_uom_qty"/>
+<!--                            <field name="unit_tp_rate"/>-->
+                            <field name="price_unit"/>
+                            <field name="cotton_tp_rate"/>
+                            <field name="unit_invoice_rate"/>
+                            <field name="cotton_invoice_rate"/>
+                            <field name="unit_discount"/>
+                            <field name="cotton_discount"/>
+                            <field name="discount_percentage"/>
+                            <field name="per_unit_retail_price"/>
+                            <field name="tp_value"/>
+                            <field name="distributor_margin"/>
+                            <field name="trade"/>
+                            <field name="trade_amount"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="net_amount"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="qty_delivered"/>
+                        </group>
+                    </group>
+                </form>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                <attribute name="editable"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

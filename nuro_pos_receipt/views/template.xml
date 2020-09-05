@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+<!--    <template id="point_of_sale.assets_backend" name="point_of_sale assets" inherit_id="point_of_sale.assets">-->
+<!--        <xpath expr="//script[@src='/point_of_sale/static/src/js/models.js']" position="replace">-->
+<!--            <script type="text/javascript" src="/nuro_pos_receipt/static/src/js/custom.js"></script>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//script[@src='/point_of_sale/static/src/js/models.js']" position="replace">&ndash;&gt;-->
+<!--            <script type="text/javascript" src="/nuro_pos_receipt/static/src/js/custom.js"></script>-->
+<!--        </xpath>-->
+<!--    </template>-->
+</odoo>

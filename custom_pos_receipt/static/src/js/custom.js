@@ -4,11 +4,22 @@ odoo.define('custom_pos_receipt.pos_order_extend', function (require) {
    var screens = require('point_of_sale.screens');
    var core = require('web.core');
    var QWeb = core.qweb;
-//   {
-//        model:  'res.partner',
-//        fields: [ 'name'],
-//   },
-   models.load_fields('pos.order',['invoice_number']);
-//   models.load_fields('res.company',['currency_id', 'email', 'street2', 'website', 'company_registry', 'vat', 'name', 'phone', 'partner_id' , 'country_id', 'tax_calculation_rounding_method', 'social_facebook', 'social_instagram']);
+   var exports = {};
 
+   var _super_posmodel = models.PosModel.prototype;
+
+    models.PosModel = models.PosModel.extend({
+        initialize: function (session, attributes) {
+            // New code
+            var partner_model = _.find(this.models, function(model){
+                return model.model === 'res.company';
+            });
+            partner_model.fields.push('street', 'street2', 'city');
+
+            // Inheritance
+            return _super_posmodel.initialize.call(this, session, attributes);
+        },
+    });
+
+   models.load_fields('pos.order',['invoice_number']);
 });

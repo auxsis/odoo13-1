@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_de_custom_pos_receipt_de_custom_pos_receipt,de_custom_pos_receipt.de_custom_pos_receipt,model_de_custom_pos_receipt_de_custom_pos_receipt,base.group_user,1,1,1,1

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    <record id="custom_proforma_invoice1_LS1" model="report.paperformat">-->
+<!--        <field name="name">custom proforma invoice1 Paper Format</field>-->
+<!--        <field name="orientation">Landscape</field>-->
+<!--        <field name="dpi">90</field>-->
+<!--    </record>-->
+
+
+    <report
+        id="report_action_custom_proforma1"
+        string="Proforma Invoice"
+        model= "proforma.invoice1"
+        report_type="qweb-pdf"
+        name="de_custom_invoice_template.report_custom_proforma_view"
+        file="de_custom_invoice_template.report_custom_proforma_view"/>
+</odoo>

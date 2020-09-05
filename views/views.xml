@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="env/dynexcel/addons/.list">
+      <field name="name">env/dynexcel/addons/ list</field>
+      <field name="model">env/dynexcel/addons/.env/dynexcel/addons/</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="env/dynexcel/addons/.action_window">
+      <field name="name">env/dynexcel/addons/ window</field>
+      <field name="res_model">env/dynexcel/addons/.env/dynexcel/addons/</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="env/dynexcel/addons/.action_server">
+      <field name="name">env/dynexcel/addons/ server</field>
+      <field name="model_id" ref="model_env/dynexcel/addons/_env/dynexcel/addons/"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="env/dynexcel/addons/" id="env/dynexcel/addons/.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="env/dynexcel/addons/.menu_1" parent="env/dynexcel/addons/.menu_root"/>
+    <menuitem name="Menu 2" id="env/dynexcel/addons/.menu_2" parent="env/dynexcel/addons/.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="env/dynexcel/addons/.menu_1_list" parent="env/dynexcel/addons/.menu_1"
+              action="env/dynexcel/addons/.action_window"/>
+    <menuitem name="Server to list" id="env/dynexcel/addons/" parent="env/dynexcel/addons/.menu_2"
+              action="env/dynexcel/addons/.action_server"/>
+-->
+  </data>
+</odoo>

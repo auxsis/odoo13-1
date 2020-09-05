@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+
+<odoo>
+
+<!--    account move line form-->
+    <record id="customized_invoice.inherit_account_move_view_form" model="ir.ui.view">
+        <field name="name">inherit.account.move.form.view</field>
+        <field name ="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name = "arch" type = "xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='quantity']" position="before">
+                <field name="cotton" invisible="1"/>
+                <field name="cotton_packing" invisible="1"/>
+                <field name="cotton_units" invisible="1"/>
+                <field name="unit_tp_rate" invisible="1"/>
+                <field name="cotton_tp_rate" invisible="1"/>
+                <field name="unit_invoice_rate" invisible="1"/>
+                <field name="cotton_invoice_rate" invisible="1"/>
+                <field name="unit_discount" invisible="1"/>
+                <field name="cotton_discount" invisible="1"/>
+                <field name="discount_percentage" invisible="1"/>
+                <field name="per_unit_retail_price" invisible="1"/>
+                <field name="tp_value" invisible="1"/>
+                <field name="distributor_margin" invisible="1"/>
+                <field name="trade" invisible="1"/>
+                <field name="trade_amount" invisible="1"/>
+                <field name="net_amount" invisible="1"/>
+                <field name="per_cotton_retail_price" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='account_id']" position="before">
+                <field name ="cotton" invisible="1"/>
+                <field name ="cotton_packing" invisible="1"/>
+                <field name ="cotton_units" invisible="1"/>
+                <field name="unit_tp_rate" invisible="1"/>
+                <field name="cotton_tp_rate" invisible="1"/>
+                <field name="unit_invoice_rate" invisible="1"/>
+                <field name="cotton_invoice_rate" invisible="1"/>
+                <field name="unit_discount" invisible="1"/>
+                <field name="cotton_discount" invisible="1"/>
+                <field name="discount_percentage" invisible="1"/>
+                <field name="per_unit_retail_price" invisible="1"/>
+                <field name="tp_value" invisible="1"/>
+                <field name="distributor_margin" invisible="1"/>
+                <field name="trade" invisible="1"/>
+                <field name="trade_amount" invisible="1"/>
+                <field name="net_amount" invisible="1"/>
+                <field name="per_cotton_retail_price" invisible="1"/>
+            </xpath>
+            <xpath expr ="//field[@name='invoice_line_ids']" position="inside">
+                <form string="Invoice Lines">
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="cotton"/>
+                            <field name="cotton_packing"/>
+<!--                            <field name ="cotton_units"/>-->
+                            <field name="quantity"/>
+                            <field name ="price_unit"/>
+<!--                            <field name="unit_tp_rate"/>-->
+                            <field name="cotton_tp_rate"/>
+                            <field name="unit_invoice_rate"/>
+                            <field name="cotton_invoice_rate"/>
+                            <field name="unit_discount"/>
+                            <field name="cotton_discount"/>
+                            <field name="discount_percentage"/>
+                            <field name="per_unit_retail_price"/>
+                            <field name="tp_value"/>
+                            <field name="distributor_margin"/>
+                            <field name="trade"/>
+                            <field name="trade_amount"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="net_amount"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </form>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree" position="attributes">
+                <attribute name="editable"/>
+            </xpath>
+        </field>
+
+    </record>
+</odoo>

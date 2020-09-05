@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <template id="report_custom_proforma_view">
+<!--            <t t-call="web.html_container">-->
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h3 style="margin-bottom:-15px; text-align:center;">Proforma Invoice</h3>
+                            <style type="text/css">
+                                .o_report_layout_background{
+                                padding-top: 3%!important;
+                                }
+                                table th{
+                                text-align: center;
+                                }
+                                #th2 {
+                                padding-bottom:10px;
+                                }
+                                #th3 {
+                                padding-top:20px;
+                                }
+                                #th4 {
+                                padding-bottom:10px;
+                                }
+                                #th5 {
+                                padding-bottom:10px;
+                                }
+                                #th6 {
+                                padding-bottom:10px;
+                                }
+                                #th7 {
+                                padding-bottom:10px;
+                                }
+                                table, th, td {
+                                border: 1px solid black;
+                                border-collapse: collapse;
+                                }
+                                th, td {
+                                padding:3px;
+                                }
+
+                            </style>
+
+                            <div>
+                                <strong>Invoice Number:</strong>
+<!--                                <div>-->
+<!--                                    <strong>Sub Asset Category:</strong>-->
+<!--                                    <t t-foreach="docs.report_asset_subcateg_ids" t-as="q">-->
+<!--                                        <span t-field="q.name"/>-->
+
+<!--                                    </t>-->
+<!--                                </div>-->
+
+                                <strong>
+                                    Date:
+                                </strong>
+                            </div>
+
+
+
+                            <table>
+<!--                                <thead style="background-color:Silver;">-->
+                                    <tr>
+                                        <th>Asset Reference</th>
+                                        <th id="th2">Serial Number</th>
+                                        <th id="th3">Asset Name</th>
+                                        <th id="th4">Location</th>
+                                        <th id="th5">Acquisition <br></br>Date
+                                        </th>
+                                        <th>Acquisition <br></br>cost <br></br>(A)
+                                        </th>
+                                        <th id="th7">Depreciation <br></br>Method
+                                        </th>
+                                        <th width="150">Useful Life</th>
+                                        <th>Salvage <br></br>Value <br></br>(B)
+                                        </th>
+                                        <th>Previous <br></br>Depreciation <br></br>(C)
+                                        </th>
+                                        <th>Current  <br></br>Depreciation <br></br>(D)
+                                        </th>
+                                        <th id="th6">Total <br></br>Depreciation <br></br>(E=C+D)
+                                        </th>
+                                        <th>Written Down <br></br>Value <br></br>(F=A-E)
+                                        </th>
+                                    </tr>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+<!--            </t>-->
+        </template>
+
+<!--        <template id="report_custom_proforma_view">-->
+<!--            <t t-call="web.html_container">-->
+<!--                <t t-set="data_report_margin_top" t-value="12"/>-->
+<!--                <t t-set="data_report_header_spacing" t-value="9"/>-->
+<!--                <t t-set="data_report_dpi" t-value="110"/>-->
+<!--                <t t-foreach="docs" t-as="o">-->
+<!--                    <t t-call="web.internal_layout">-->
+<!--                        <div class="page">-->
+<!--                            <h2>Proforma Invoice</h2>-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-xs-3">-->
+<!--                                    <strong>Company:</strong>-->
+<!--                                    <p t-esc="res_company.name"/>-->
+<!--                                </div>-->
+<!--                                <div class="col-xs-3">-->
+<!--                                    <t t-if="data['form']['date']">-->
+<!--                                        <strong>Date from :</strong>-->
+<!--                                        <span t-esc="data['form']['date']"/>-->
+<!--                                        <br/>-->
+<!--                                    </t>-->
+<!--&lt;!&ndash;                                    <t t-if="data['form']['date_to']">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <strong>Date to :</strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <span t-esc="data['form']['date_to']"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </t>&ndash;&gt;-->
+<!--                                </div>-->
+<!--&lt;!&ndash;                                <div class="col-xs-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <strong>Target Moves:</strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <p t-if="data['form']['target_move'] == 'all'">All Entries</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <p t-if="data['form']['target_move'] == 'posted'">All Posted Entries</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <div class="col-xs-3" groups="base_branch_company.group_multi_branch">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <strong>Branch:</strong>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <p t-if="data['form']['branch_id']">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <span t-esc="data['form']['branch_id'][1]"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </p>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                            </div>-->
+
+<!--                            <table class="table table-condensed">-->
+<!--                                <thead>-->
+<!--                                    <tr>-->
+<!--                                        <th>Date</th>-->
+<!--                                        <th>JRNL</th>-->
+<!--                                        <th>Account</th>-->
+<!--                                        <th>Ref</th>-->
+<!--                                        <th>Debit</th>-->
+<!--                                        <th>Credit</th>-->
+<!--                                        <th>Balance</th>-->
+<!--                                        <th t-if="data['form']['amount_currency']">Currency</th>-->
+<!--                                    </tr>-->
+<!--                                </thead>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </t>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--        </template>-->
+        <!--        <template id="report_custom_proforma_view">-->
+        <!--            <t t-call="web.html_container">-->
+        <!--                <t t-foreach="docs" t-as="o">-->
+        <!--                    <t t-call="web.external_layout">-->
+        <!--                        <div class="page">-->
+        <!--                            <h3 style="margin-bottom:-15px; text-align:center;">Proforma Invoice</h3>-->
+        <!--&lt;!&ndash;                            <style type="text/css">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                .o_report_layout_background{&ndash;&gt;-->
+        <!--&lt;!&ndash;                                padding-top: 3%!important;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                table th{&ndash;&gt;-->
+        <!--&lt;!&ndash;                                text-align: center;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                #th2 {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                padding-bottom:10px;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                #th3 {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                padding-top:20px;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                #th4 {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                padding-bottom:10px;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                #th5 {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                padding-bottom:10px;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                #th6 {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                padding-bottom:10px;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                #th7 {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                padding-bottom:10px;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                table, th, td {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                border: 1px solid black;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                border-collapse: collapse;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                th, td {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                padding:3px;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                            </style>&ndash;&gt;-->
+        <!--                            <div>-->
+        <!--                                <strong>-->
+        <!--                                    Proforma Invoice Number :-->
+        <!--                                </strong>-->
+        <!--&lt;!&ndash;                                <t t-foreach="docs.report_asset_category_ids" t-as="x">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <span t-field="x.name"/>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                </t>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                <div>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <strong>Sub Asset Category:</strong>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <t t-foreach="docs.report_asset_subcateg_ids" t-as="q">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <span t-field="q.name"/>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                    </t>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                <strong>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    Date:&ndash;&gt;-->
+        <!--&lt;!&ndash;                                </strong>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                <t t-esc="o.date"/>&ndash;&gt;-->
+        <!--                            </div>-->
+        <!--                            <div>-->
+        <!--                                <strong>-->
+        <!--                                    P/N:-->
+        <!--                                </strong>-->
+        <!--                                <strong>-->
+        <!--                                    Date:-->
+        <!--                                </strong>-->
+        <!--                                <span t-esc="data['form']['date_from']"/>-->
+        <!--                            </div>-->
+        <!--&lt;!&ndash;                            <table class="table table-condensed table-bordered">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                <tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <strong>CWIP Assetj</strong>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <strong>CWIP Category</strong>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                <tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <strong>Amount</strong>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <strong>Account Entry Asset</strong>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                            </table>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                            <table class="table table-condensed">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                <thead>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <th>Product</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <th>Partner</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <th>Description</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <th>Account</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <th>Quantity</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <th>Unit Price</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <th>Taxes</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <th>Number</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <th>Invoice Date</th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <th>Taxed Amount</th>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                    </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                </thead>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                <tbody>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <t t-set="inclusive_tax_amount" t-value="0"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <t t-set="total_tax_amount" t-value="0"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <tr t-foreach="docs_line"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        t-as="line">&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <span t-field="line.product_id"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <span t-field="line.partner_id"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <span t-field="line.name"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <span t-field="line.account_id"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <span t-field="line.quantity"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <span t-field="line.price_unit"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <t t-foreach="line" t-as="t">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                <t t-set="compute_tax_amount" t-value="0"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                <t t-set="inclusive_tax_amount" t-value="0"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                <t t-if="t">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <t t-set="tax_amount" t-value="0"/>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                                    <t t-foreach="t.invoice_line_tax_ids" t-as="a">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <t t-if="a.amount > 0">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <t t-set="tax_amount" t-value="tax_amount+a.amount"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </t>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <span t-field="a.name"/>,&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                                    </t>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <t t-set="compute_tax_amount"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                       t-value="line.price_unit*(tax_amount/100)"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <t t-set="inclusive_tax_amount"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                       t-value="compute_tax_amount + line.price_subtotal"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                </t>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                <t t-set="total_tax_amount"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                   t-value="total_tax_amount+inclusive_tax_amount"/>&ndash;&gt;-->
+
+
+        <!--&lt;!&ndash;                                            </t>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <span t-esc="line.vender_bill"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <span t-esc="line.date"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <span t-esc="'{0:,.2f}'.format(inclusive_tax_amount)"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <strong>Total :</strong>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td></td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td></td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td></td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td></td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td></td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td></td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td></td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td></td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <span t-esc="'{0:,.2f}'.format(total_tax_amount)"/>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                </tbody>&ndash;&gt;-->
+        <!--&lt;!&ndash;                            </table>&ndash;&gt;-->
+        <!--                        </div>-->
+        <!--                    </t>-->
+        <!--                </t>-->
+        <!--            </t>-->
+        <!--        </template>-->
+    </data>
+
+</odoo>

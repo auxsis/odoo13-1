@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <template id="point_of_sale.assets_backend" name="point_of_sale assets" inherit_id="point_of_sale.assets">
+            <xpath expr="//script[@src='/point_of_sale/static/src/js/models.js']" position="replace">
+                <script type="text/javascript" src="/de_custom_js/static/src/js/models.js"></script>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

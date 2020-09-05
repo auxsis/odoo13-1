@@ -3,10 +3,8 @@
 <templates id="template" xml:space="preserve">
     <t t-name="OrderReceipt">
 
-        <div class="pos-receipt" style="column-gap:5px; font-family:Inconsolata; font-size: 15px;">
+        <div class="pos-receipt" style="column-gap:10px; font-family:Inconsolata; font-size: 15px;">
             <div class="pos-logo" style="margin-top: 1px;" align="center">
-<!--                 <img t-att-src="'data:image/png;base64,'+ widget.pos.company.logo"-->
-<!--                      style="max-height: 1.5cm; width: 80%;"/>-->
                 <t t-if='receipt.company.logo'>
                     <img class="pos-receipt-logo" t-att-src='receipt.company.logo' alt="Logo"/>
                     <br/>
@@ -21,6 +19,7 @@
                 </h2>
             </div>
             <div class="pos-center-align">
+<!--                <t t-esc="customer_name"/>-->
                 <t t-if="widget.pos.company.street">
                     <div style="width:100%;"><t t-esc="widget.pos.company.street"/></div>
                 </t>
@@ -38,7 +37,6 @@
             <div class="pos-center-align">
                 <b>
                     STN #
-                    <!--                     <t t-esc="order.job_created_name"/>/ -->
                     <t t-esc="3277876113020"/>
                     <br/>
                     NTN #
@@ -58,15 +56,15 @@
                     <td>
                         <strong>Invoice #</strong>
                     </td>
-<!--                    <td class="pos-right-align">-->
-<!--                        <t t-esc='widget.pos.invoice_number'/>-->
-<!--                    </td>-->
+                    <td class="pos-right-align">
+                        <t t-esc="order.get_invoice_number()"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <strong>Operator Name #</strong>
                     </td>
-                    <td class="text-right" style="float:right;">
+                    <td class="pos-right-align">
                         <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/>
                     </td>
                 </tr>
@@ -92,7 +90,7 @@
                     <td>
                         <strong>Counter #</strong>
                     </td>
-                    <td class="pos-right-align">
+                    <td class="pos-right-align" style="float:right; margin-right: 2px;">
                         <t t-esc="widget.pos.config.name"/>
                     </td>
                 </tr>
@@ -102,34 +100,25 @@
                 <colgroup>
                     <col width='70%'/>
                     <col width='20%'/>
-                    <col width='20%'/>
+                    <col width='30%'/>
                     <col width='30%'/>
                     <col width='20%'/>
                 </colgroup>
                 <tr style="outline: thin solid">
-                    <th>ITEM</th>
+                    <th>Item</th>
                     <th>Price</th>
-                    <th>QTY</th>
+                    <th>Qty</th>
 <!--                    <th class="pos-right-align">Tax</th>-->
                     <th>Disc</th>
-                    <th class="pos-right-align">Amount.</th>
+                    <th class="pos-right-align">Amount</th>
                 </tr>
                 <t t-set="totl_qty" t-value="0"/>
                 <t t-set="total_items" t-value="0"/>
                 <tr t-foreach="orderlines" t-as="orderline">
                     <td>
-<!--                        <t t-set='simple' t-value='(line.discount === 0 and line.unit_name === "Units" and line.quantity === 1 and !discount_to_show and !(line.display_discount_policy == "without_discount" &amp;&amp; line.price != line.price_lst))' />-->
-<!--                        <t t-if='simple'>-->
-<!--                            <div>-->
-<!--                                <t t-esc='line.product_name_wrapped[0]'/>-->
-<!--&lt;!&ndash;                                <span t-esc='widget.format_currency_no_symbol(line.price_display)' class="price_display pos-receipt-right-align"/>&ndash;&gt;-->
-<!--                            </div>-->
-<!--                            <t t-call="OrderReceiptWrappedProductNameLines"/>-->
-<!--                        </t>-->
                         <t t-esc="orderline.get_product().display_name"/>
                     </td>
                     <td>
-<!--                        <t t-set="unit_price" t-value="orderline.get_unit_price()"/>-->
                         <t t-if="widget.pos.config.is_partner_pos == false">
                             <t t-set="unit_price" t-value="orderline.get_unit_price()"/>
                         </t>
@@ -158,11 +147,10 @@
                         </t>
                     </td>
                     <td>
-<!--                        <t t-esc="round(orderline.get_quantity_str())"/>-->
                         <t t-esc="orderline.quantity"/>
                     </td>
                     <td>
-                        <t t-esc="orderline.discount"/>
+                        <t t-esc="orderline.discount"/>%
                     </td>
                     <t t-set="totl_qty" t-value="totl_qty + orderline.get_quantity()"/>
                     <td class="pos-right-align">
@@ -259,11 +247,6 @@
                         </td>
                     </tr>
                 </t>
-<!--                <tr style='border-bottom:1pt solid black;' t-foreach="journals" t-as="journal">-->
-<!--                    <td>-->
-<!--                        <t t-esc="widget.pos.journals.type"/>-->
-<!--                    </td>-->
-<!--                </tr>-->
             </table>
             <t t-set="tax_inclusive" t-value="widget.format_currency(order.get_total_without_tax())"/>
             <t t-set="taxes" t-value="(tax_inclusive * 17) / 100"/>
@@ -273,7 +256,7 @@
             <div class="centered">
                 <center>
                     <b>
-                        <p style="border-style: solid;">You Saved : <t t-esc="widget.format_currency(order.get_total_discount())"/></p>
+                        <p style="border-style: solid;">You Saved : <t t-esc='widget.format_currency(receipt.total_discount)' class="pos-receipt-right-align"/></p>
                     </b>
                 </center>
             </div>
@@ -311,68 +294,6 @@
                 Phone:<strong>+923331616393</strong><br/>
                 www.dynexcel.com
             </div>
-<!--            <div class='orderlines'>-->
-<!--                <t t-foreach='receipt.orderlines' t-as='line'>-->
-<!--                    <t t-set='simple' t-value='(line.discount === 0 and line.unit_name === "Units" and line.quantity === 1 and !discount_to_show and !(line.display_discount_policy == "without_discount" &amp;&amp; line.price != line.price_lst))' />-->
-<!--                    <t t-if='simple'>-->
-<!--                        <div><t t-esc='line.product_name_wrapped[0]' /><span t-esc='widget.format_currency_no_symbol(line.price_display)' class="price_display pos-receipt-right-align"/></div><t t-call="OrderReceiptWrappedProductNameLines"/></t>-->
-<!--                    <t t-if='!simple'>-->
-<!--                        <div t-esc='line.product_name_wrapped[0]'/><t t-call="OrderReceiptWrappedProductNameLines"/><t t-if="line.display_discount_policy == 'without_discount' &amp;&amp; line.price != line.price_lst"><div class="pos-receipt-left-padding"><t t-esc="widget.format_currency_no_symbol(line.price_lst)" />-><t t-esc="widget.format_currency_no_symbol(line.price)" /></div>-->
-<!--                        </t>-->
-<!--                        <t t-elif='line.discount !== 0'>-->
-<!--                            <div class="pos-receipt-left-padding">-->
-<!--                                <t t-if="pos.config.iface_tax_included === 'total'">-->
-<!--                                    <t t-esc="widget.format_currency_no_symbol(line.price_with_tax_before_discount)"/>-->
-<!--                                </t>-->
-<!--                                <t t-else="">-->
-<!--                                    <t t-esc="widget.format_currency_no_symbol(line.price)"/>-->
-<!--                                </t>-->
-<!--                            </div>-->
-<!--                        </t>-->
-<!--                        <t t-if='line.discount !== 0'>-->
-<!--                            <div class="pos-receipt-left-padding">-->
-<!--                                Discount: <t t-esc='line.discount' />%-->
-<!--                            </div>-->
-<!--                        </t>-->
-<!--                        <div class="pos-receipt-left-padding">-->
-<!--                            <t t-esc="Math.round(line.quantity * Math.pow(10, pos.dp['Product Unit of Measure'])) / Math.pow(10, pos.dp['Product Unit of Measure'])"/>-->
-<!--                            <t t-if='line.unit_name !== "Units"' t-esc='line.unit_name'/>-->
-<!--                            x-->
-<!--                            <t t-esc='widget.format_currency_no_symbol(line.price_display_one)' />-->
-<!--                            <span class="price_display pos-receipt-right-align">-->
-<!--                                <t t-esc='widget.format_currency_no_symbol(line.price_display)'/>-->
-<!--                            </span>-->
-<!--                        </div>-->
-<!--                    </t>-->
-<!--                </t>-->
-<!--            </div>-->
         </div>
     </t>
 </templates>
-<!--<templates id="template" xml:space="preserve">-->
-<!--    <t t-extend="OrderReceipt">-->
-<!--        <t t-jquery=".pos-receipt .pos-receipt-contact" t-operation='append'>-->
-
-<!--            <t t-if='receipt.client'>-->
-<!--                <div>Client: <t t-esc='receipt.client' /></div>-->
-<!--            </t>-->
-<!--        </t>-->
-<!--    </t>-->
-<!--    <t t-name="PosTicket">-->
-<!--        <div class="pos-sale-ticket" style="column-gap:5px; font-family:Inconsolata; font-size: 15px;">-->
-<!--            <div class="pos-logo" style="margin-top: 1px;" align="center">-->
-<!--                 <img t-att-src="'data:image/png;base64,'+ widget.pos.company.logo"-->
-<!--                      style="max-height: 1.5cm; width: 80%;"/>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <br/>-->
-<!--        <div class="pos-center-align">-->
-<!--            <h2>-->
-<!--                <b>-->
-<!--                    WAREHOUSE-->
-<!--                </b>-->
-<!--            </h2>-->
-<!--        </div>-->
-<!--    </t>-->
-<!--</templates>-->

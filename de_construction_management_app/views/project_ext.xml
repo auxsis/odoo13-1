@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+
+<odoo>
+
+    <record id="de_construction_management_app.project_project_ext_view" model="ir.ui.view">
+        <field name="name">project inherit form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Construction Site Detail">
+                    <group>
+                        <group>
+                            <field name="customer_type"/>
+                            <field name="location_id"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button name="action_material_requisition" type="object" string="Material Requisition"
+                        class="oe_stat_button" icon="fa-book"/>
+                <button name="action_view_notes" type="object" string="Notes"
+                        class="oe_stat_button" icon="fa-tasks"/>
+                <button name="action_time_sheet" type="object" string="TimeSheet"
+                        class="oe_stat_button" icon="fa-calendar"/>
+            </xpath>
+			<xpath expr="//field[@name='privacy_visibility']" position="before">
+				<field name="analytic_account_id"/>
+				<field name="sub_task_project_id"/>
+			</xpath>
+        </field>
+    </record>
+
+    <menuitem id="de_construction_management_app.de_construction_management_app_root" name="Construction"/>
+
+    <menuitem id="de_construction_management_app.de_construction_management_app_construction" name="Construction"
+              parent="de_construction_management_app.de_construction_management_app_root"/>
+
+    <menuitem id="de_construction_management_app.de_construction_management_app_project" name="Project"
+              parent="de_construction_management_app.de_construction_management_app_construction"
+              action="project.open_view_project_all"/>
+
+    <menuitem id="de_construction_management_app.de_construction_management_app_notes" name="Notes"
+              parent="de_construction_management_app.de_construction_management_app_construction"/>
+
+</odoo>
